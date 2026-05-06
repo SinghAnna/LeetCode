@@ -1,0 +1,65 @@
+public class _1861_RotatingtheBox {
+
+    public char[][] rotateTheBox(char[][] boxGrid) {
+
+        int m = boxGrid.length;
+        int n = boxGrid[0].length;
+
+        for (int i = 0; i < m; i++) {
+
+            int empty = n - 1;
+
+            for (int j = n - 1; j >= 0; j--) {
+
+                if (boxGrid[i][j] == '*') {
+                    empty = j - 1;
+                } else if (boxGrid[i][j] == '#') {
+                    char temp = boxGrid[i][empty];
+                    boxGrid[i][empty] = '#';
+                    boxGrid[i][j] = temp;
+                    empty--;
+                }
+            }
+
+        }
+
+        char[][] result = new char[n][m];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                result[j][m - 1 - i] = boxGrid[i][j];
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        char[][] boxGrid = {
+                { '#', '#', '*', '.', '*', '.' },
+                { '#', '#', '#', '*', '.', '.' },
+                { '#', '#', '#', '.', '#', '.' }
+        };
+
+
+        _1861_RotatingtheBox rotatingtheBox = new _1861_RotatingtheBox();
+
+         for (char[] cs : boxGrid) {
+            for (char cs2 : cs) {
+                System.out.print(cs2 + " ");
+            }
+            System.out.println();
+        }
+
+
+        System.out.println("Before rotations");
+        char[][] result = rotatingtheBox.rotateTheBox(boxGrid);
+
+        for (char[] cs : result) {
+            for (char cs2 : cs) {
+                System.out.print(cs2 + " ");
+            }
+            System.out.println();
+        }
+    }
+}
